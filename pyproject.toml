@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "womentechglobal_demo"
+version = "0.1.0"
+description = ""
+authors = ["Svitlana Glibova"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+pytest-cov = "*"
+blue = "0.5.2"
+flake8 = "*"
+flake8-debugger = "*"
+flake8-pytest-style = "*"
+isort = "*"
+mypy = "*"
+pep8-naming = "*"
+pyupgrade = "*"
+bandit = "*"
+pip-audit = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
