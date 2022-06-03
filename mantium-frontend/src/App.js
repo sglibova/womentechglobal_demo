@@ -31,10 +31,24 @@ function App() {
     ]
   )
 
+  // Delete Ingredient
+  const deleteIngredient = (id) => {
+    setIngredients(ingredients.filter((task) => task.id !== id))
+  }
+
+  // Toggle Use
+  const toggleUse = (id) => {
+    console.log('using id', id)
+    setIngredients(
+      ingredients.map((ingredient) =>
+        ingredient.id === id ? { ...ingredient, use: !ingredient.use } : ingredient))
+  }
+
   return (
-    <div className="container">
+    <div className='container'>
       <Header />
-      <Ingredients ingredients={ingredients} />
+      {ingredients.length > 0 ? < Ingredients ingredients={ingredients}
+        onDelete={deleteIngredient} onToggle={toggleUse} /> : 'Add Ingredients!'}
     </div>
   );
 }
