@@ -16,11 +16,11 @@ if mantium_token:
 # Retrieve prompt by ID from Mantium
 prompt = prompt.Prompt.from_id(prompt_id)
 
-def prompt_results():
+def prompt_results(input_text):
     """ Retrieve results from the prompt above - uses a pre-configured prompt from ID.
     """
 
-    executed_prompt = prompt.execute("")
+    executed_prompt = prompt.execute(f"{input_text}")
     executed_prompt.refresh()
 
     time.sleep(5)  # prompt execution takes a small amount of time > this ensures a response
@@ -43,7 +43,7 @@ def prompt_results():
     return prompt_result
 
 if __name__ == "__main__":
-    result = prompt_results()
+    result = prompt_results("lemon juice, whiskey, egg, cherry juice")
     assert isinstance(result, str)
 
     print(result)

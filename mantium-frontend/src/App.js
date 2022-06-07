@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Ingredients from './components/Ingredients'
 import AddIngredient from './components/AddIngredient'
 import About from './components/About'
+import NameForm from './components/TextBox'
 
 function App() {
   const [showAddIngredient, setShowAddIngredient] = useState(false)
@@ -100,6 +101,7 @@ function App() {
           } />
           <Route path='/about' element={<About />} />
         </Routes>
+        <NameForm />
         <Footer />
       </div>
     </Router>
