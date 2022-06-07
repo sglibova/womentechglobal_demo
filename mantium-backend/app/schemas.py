@@ -1,11 +1,17 @@
-from re import L
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel
+from typing import List
 
 class Ingredient(BaseModel):
-    pass
+    id: int
+    name: str
+    amount: float
+    unit: str
+    use: bool
 
+class Ingredients(BaseModel):
+    ingredients: List[Ingredient]
 class PromptInput(BaseModel):
-    pass
+    input: str
 
 class PromptOutput(BaseModel):
-    pass
+    output: str
