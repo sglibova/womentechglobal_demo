@@ -1,3 +1,5 @@
+import run_prompt
+
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
@@ -55,6 +57,11 @@ def search_recipes(
     results = filter(lambda ingredient: keyword.lower() in ingredient["name"].lower(), INGREDIENTS)
     return {"results": list(results)[:max_results]}
 
+
+### This is where we call to Mantium with an input. TODO: make this a GET request
+prompt_input = None
+# call to mantium_call to return the results of the prompt to post
+prompt_output = run_prompt.prompt_results(prompt_input)
 
 
 app.include_router(api_router)
