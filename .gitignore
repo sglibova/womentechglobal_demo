@@ -1,6 +1,6 @@
 ## Python
 # Byte-compiled / optimized / DLL files
-**/__pycache__
+mantium-backend/app/__pycache__
 *.py[cod]
 *$py.class
 
@@ -67,7 +67,7 @@ __pypackages__/
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-**/node_modules
+mantium-frontend/node_modules
 .pnp
 .pnp.js
 
