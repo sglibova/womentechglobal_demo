@@ -1,5 +1,8 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional
+
+from ingredient_list import INGREDIENTS
 
 app = FastAPI(title="Mantium RecipeBot", openapi_url="/openapi.json")
 
@@ -19,35 +22,43 @@ app.add_middleware(
 api_router = APIRouter()
 
 
-ingredients = [
-    {
-        "id": "4",
-        "name": "anchovies",
-        "amount": "4",
-        "unit": "oz",
-        "use": True
-    },
-    {
-        "id": "5",
-        "name": "butter",
-        "amount": "8",
-        "unit": "oz",
-        "use": True
-    },
-
-]
-
+# Root
 @api_router.get("/", tags=["root"])
-async def read_root():
+async def root():
     return {"message": "Welcome to MantiumBot Recipe Generator"}
 
-@api_router.get("/ingredients", tags=["ingredients"])
+# All Ingredients
+@api_router.get("/ingredients", tags=["ingredients"], status_code=200)
 async def get_ingredients() -> dict:
-    return {"data": ingredients}
+    return INGREDIENTS
+
+# Get Ingredient by ID
+@api_router.get("/ingredients/{id}", tags=["ingredients"], status_code=200)
+async def get_ingredient(*, id: int) -> dict:
+    result = [ingredient for ingredient in INGREDIENTS if ingredient["id"] == id]
+    if result:
+        return result[0]
+
+# Search Ingredients by Keyword
+@api_router.get("/search/", tags=["ingredients"], status_code=200)
+def search_recipes(
+    keyword: Optional[str] = None, max_results: Optional[int] = 10
+) -> dict:
+    """
+    Search for ingredient based on label keyword
+    """
+    if not keyword:
+        # we use Python list slicing to limit results
+        # based on the max_results query parameter
+        return {"results": INGREDIENTS[:max_results]}
+
+    results = filter(lambda ingredient: keyword.lower() in ingredient["name"].lower(), INGREDIENTS)
+    return {"results": list(results)[:max_results]}
 
 
 
 app.include_router(api_router)
+
 
 if __name__ == "__main__":
     import uvicorn

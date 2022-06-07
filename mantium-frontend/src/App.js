@@ -24,7 +24,7 @@ function App() {
     const response = await fetch('http://localhost:8000/ingredients')
     const data = await response.json()
 
-    return data.data
+    return data
 
   }
 
@@ -33,7 +33,7 @@ function App() {
     const response = await fetch(`http://localhost:8000/ingredients/${id}`)
     const data = await response.json()
 
-    return data.data
+    return data
   }
 
   // Add Ingredient
@@ -81,7 +81,7 @@ function App() {
 
     setIngredients(
       ingredients.map((ingredient) =>
-        ingredient.id === id ? { ...ingredient, use: !data.data.use } : ingredient
+        ingredient.id === id ? { ...ingredient, use: !data.use } : ingredient
       )
     )
   }
