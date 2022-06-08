@@ -42,72 +42,118 @@ To learn more about initializing your own project using Poetry, check out the ad
 
 ## POETRY INSTALL
 Step 1: Install Python Poetry
+
 `$ curl https://install.python-poetry.org | python -`
+
 Step 2: Add Poetry Config to your ~/.bashrc, ~/.zshrc, or ~/.bashprofile
+
 `$ export 'if [ -d "$HOME/.local/bin" ] ; then PATH="$HOME/.local/bin:$PATH" fi' >> ~/.bashrc`
+
 Step 3: Configure Poetry to store virtual environments in the project directory root
+
 `$ poetry config virtualenvs.in-project-dir true`
 
 
 ## CONFIGURE ENVIRONMENT VARIABLES
 Reminder: please never use unencrypted environment variables in production, and never push them to a public repo!
 Step 1: Update `.env-demo` to `.env`
+
 `$ mv .env-demo .env`
+
 Step 2: Replace placeholder strings in `.env` with your Mantium credentials
 
 ## DEMO SETUP USING POETRY
 Step 1: Change into a directory where you keep your projects
+
 `$ cd ~/path/to/your/projects`
+
 Step 2: Clone this repository into your projects directory
+
 `$ git clone url/to/this/repository`
+
 Step 3: Change into the directory where you cloned the repository
+
 `$ cd ~/path/to/your/projects/womentechglobal_demo`
+
 Step 4: Change into the mantium-backend/ directory
+
 `$ cd mantium-backend/`
+
 Step 5: Install the dependencies using Poetry
+
 `$ poetry install`
+
 Step 6: Initialize the virtual environment
+
 `$ poetry shell`
 
 ## DEMO SETUP USING VIRTUALENV + VIRTUALENV WRAPPER
 Step 1: Change into a directory where you keep your projects
+
 `$ cd ~/path/to/your/projects`
+
 Step 2: Clone this repository into your projects directory
+
 `$ git clone url/to/this/repository`
+
 Step 3: Change into the directory where you cloned the repository
+
 `$ cd ~/path/to/your/projects/womentechglobal_demo`
+
 Step 4: Create a virtual environment
+
 `$ mkvirtualenv mantium_python_project`
+
 Step 5: Change into the `mantium-backend` directory
+
 `$ cd mantium-backend`
+
 Step 6: Initialize the virtual environment
+
 `$ workon mantium_python_project`
+
 Step 7: Install the dependencies using pip
+
 `$ pip install -r requirements.txt`
 
 If you use other methods, feel free to adapt these steps to your needs!
 
 ## RUN FRONTEND AND BACKEND (MUST HAVE NODE AND NPM TO RUN FRONTEND)
 Step 1: Change into the `mantium-backend` directory
+
 `$ cd mantium-backend/`
+
 Step 2: Run uvicorn server using the shell script in run.sh
+
 `$ poetry run ./run.sh`
+
 Step 3: Change into `mantium-frontend` directory
+
 `$ cd ../mantium-frontend/`
+
 Step 4: Run frontend using npm
+
 `$ npm start`
 
-Frontend can be viewed at `http://localhost:3000/`
+Frontend can now be viewed at `http://localhost:3000/`
+
 Additional Steps: Check out the FastAPI documentation created at `http://localhost:8000/docs/` for how the application backend is structured!
 
-## SETTING UP A POETRY PROJECT FROM SCRATCH
+## CREATING A PYTHON POETRY PROJECT FROM SCRATCH
 Step 1: Change into a projects directory
+
 `$ cd ~/path/to/your/projects`
+
  Step 2: Create a new Poetry project
+
 `$ poetry new project_name --name application_name.python`
+
 Step 3: Add your preferred development dependencies, for example:
+
 `$ poetry add -D pytest pytest-cov flake8`
+
 Step 4: Add your preferred production dependencies, for example:
+
 `$ poetry add fastapi pydantic numpy pandas`
 
 
