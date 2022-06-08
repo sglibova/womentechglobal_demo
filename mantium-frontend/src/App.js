@@ -75,12 +75,19 @@ function App() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ "ingredients": ingredients })
-    }).then(response => {
-      //setRecipe(response);
-      console.log("response:", response.output);
-    }).catch(error => console.log(error))
+    }).then(function (response) {
+      // The response is a Response instance.
+      // You parse the data into a useable format using `.json()`
+      return response.json();
+    }).then(function (data) {
+      // `data` is the parsed version of the JSON returned from the above endpoint.
+      console.log(data);
+      setRecipe(data.output);
+      //console.log("response:", response.body);
+      // }).catch(error => console.log(error))
+    }
+    ).catch(error => console.log(error))
   }
-
 
   // Toggle Use
   const toggleUse = async (id) => {
@@ -114,7 +121,7 @@ function App() {
               {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
               {ingredients.length > 0 ? < Ingredients ingredients={ingredients}
                 onDelete={deleteIngredient} onToggle={toggleUse} /> : 'Add Ingredients!'}
-              {recipe && <h1 style={{ backgroundColor: "red", height: "200px", width: "200px" }}> HELLO THIS IS THE RECIPE {recipe}</h1>}
+              {recipe && <h1>{recipe}</h1>}
             </>
           } />
           <Route path='/about' element={<About />} />

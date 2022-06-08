@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa'
 const Ingredient = ({ ingredient, onDelete, onToggle }) => {
     return (
         <div
-            className={`ingredient ${ingredient.use ? 'use' : ''}`}
+            className={`ingredient ${ingredient.use && 'use'}`}
             onDoubleClick={() => onToggle(ingredient.id)}>
             <h3>
                 {ingredient.name}<FaTimes
