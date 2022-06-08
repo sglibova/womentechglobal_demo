@@ -75,9 +75,10 @@ function App() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ "ingredients": ingredients })
-    }).then(
-      response => { setRecipe(response.recipe) }
-    ).catch(error => console.log(error))
+    }).then(response => {
+      //setRecipe(response);
+      console.log("response:", response.output);
+    }).catch(error => console.log(error))
   }
 
 
@@ -113,11 +114,11 @@ function App() {
               {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
               {ingredients.length > 0 ? < Ingredients ingredients={ingredients}
                 onDelete={deleteIngredient} onToggle={toggleUse} /> : 'Add Ingredients!'}
+              {recipe && <h1 style={{ backgroundColor: "red", height: "200px", width: "200px" }}> HELLO THIS IS THE RECIPE {recipe}</h1>}
             </>
           } />
           <Route path='/about' element={<About />} />
         </Routes>
-        {recipe && <h1>{recipe}</h1>}
         <Footer />
       </div>
     </Router>

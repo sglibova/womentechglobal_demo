@@ -91,10 +91,7 @@ def delete_ingredient(*, id: int) -> dict:
 @api_router.post("/recipe", tags=["recipe"], status_code=201, response_model=PromptOutput)
 def get_recipe(*, ingredients_list: Ingredients) -> dict:
 
-    # INGREDIENTS.append(add_ingredient)
-    # print(INGREDIENTS)
-    print(ingredients_list.schema_json(indent=2))
-    ingredients = [f'{ingredient["amount"]} {ingredient["unit"]} {ingredient["name"]}' for ingredient in ingredients_list]
+    ingredients = [f'{ingredient.amount} {ingredient.unit} {ingredient.name}' for ingredient in ingredients_list.ingredients]
     print(ingredients)
 
     ingredients_input = str()
@@ -107,7 +104,7 @@ def get_recipe(*, ingredients_list: Ingredients) -> dict:
 
     print(prompt_output, type(prompt_output))
 
-    return {"recipe": prompt_output}
+    return {"output": prompt_output}
 
 ###############################################################################
 app.include_router(api_router)
