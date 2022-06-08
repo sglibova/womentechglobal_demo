@@ -56,6 +56,7 @@ Step 3: Configure Poetry to store virtual environments in the project directory 
 
 ## CONFIGURE ENVIRONMENT VARIABLES
 Reminder: please never use unencrypted environment variables in production, and never push them to a public repo!
+
 Step 1: Update `.env-demo` to `.env`
 
 `$ mv .env-demo .env`
