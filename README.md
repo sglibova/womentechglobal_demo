@@ -48,18 +48,25 @@ To learn more about initializing your own project using Poetry, check out the ad
 ### Step 3: Configure Poetry to store virtual environments in the project directory root
 `$ poetry config virtualenvs.in-project-dir true`
 
+
+## CONFIGURE ENVIRONMENT VARIABLES
+Reminder: please never use unencrypted environment variables in production, and never push them to a public repo!
+### Step 1: Update `.env-demo` to `.env`
+`$ mv .env-demo .env`
+### Step 2: Replace placeholder strings in `.env` with your Mantium credentials
+
 ## DEMO SETUP USING POETRY
-### Step 3: Change into a directory where you keep your projects
+### Step 1: Change into a directory where you keep your projects
 `$ cd ~/path/to/your/projects`
-### Step 4: Clone this repository into your projects directory
+### Step 2: Clone this repository into your projects directory
 `$ git clone url/to/this/repository`
-### Step 5: Change into the directory where you cloned the repository
+### Step 3: Change into the directory where you cloned the repository
 `$ cd ~/path/to/your/projects/womentechglobal_demo`
-### Step 6: Change into the mantium-backend/ directory
+### Step 4: Change into the mantium-backend/ directory
 `$ cd mantium-backend/`
-### Step 7: Install the dependencies using Poetry
+### Step 5: Install the dependencies using Poetry
 `$ poetry install`
-### Step 8: Initialize the virtual environment
+### Step 6: Initialize the virtual environment
 `$ poetry shell`
 
 ## DEMO SETUP USING VIRTUALENV + VIRTUALENV WRAPPER
