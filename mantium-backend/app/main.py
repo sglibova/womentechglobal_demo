@@ -2,6 +2,7 @@ from .run_prompt import prompt_results
 from .ingredient_list import INGREDIENTS
 from .schemas import Ingredient, Ingredients, PromptInput, PromptOutput
 
+import logging
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
@@ -24,6 +25,8 @@ app.add_middleware(
 
 api_router = APIRouter()
 
+
+logging.basicConfig(level=logging.INFO)
 
 # Root
 @api_router.get("/", tags=["root"])
@@ -84,7 +87,7 @@ def delete_ingredient(*, id: int) -> dict:
     ingredient_entry = [ingredient for ingredient in INGREDIENTS if ingredient["id"] == id]
     if ingredient_entry:
         INGREDIENTS.remove(ingredient_entry[0])
-        print(INGREDIENTS)
+        logging.info(INGREDIENTS)
         return {"ingredients": INGREDIENTS}
 
 # Use Recipe Prompt
@@ -92,17 +95,15 @@ def delete_ingredient(*, id: int) -> dict:
 def get_recipe(*, ingredients_list: Ingredients) -> dict:
 
     ingredients = [f'{ingredient.amount} {ingredient.unit} {ingredient.name}' for ingredient in ingredients_list.ingredients]
-    print(ingredients)
+    logging.info(ingredients)
 
     ingredients_input = str()
     for ingredient in ingredients:
         ingredients_input += ingredient + " "
 
-    print(ingredients_input)
-
     prompt_output = prompt_results(ingredients_input)
 
-    print(prompt_output, type(prompt_output))
+    logging.info(prompt_output)
 
     return {"output": prompt_output}
 

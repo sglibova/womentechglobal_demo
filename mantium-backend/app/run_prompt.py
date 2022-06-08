@@ -1,4 +1,5 @@
 import os
+import logging
 import time
 from app import load_mantium_env
 
@@ -9,10 +10,12 @@ from mantiumapi import prompt
 from mantiumapi import client
 
 
+logging.basicConfig(level=logging.INFO)
+
 # Obtain bearer token and confirm log-in success
 mantium_token = client.BearerAuth().get_token()
 if mantium_token:
-    print(f"Mantium Login Successful with User {mantium_user}")
+    logging.info(f"Mantium Login Successful with User {mantium_user}")
 
 # Retrieve prompt by ID from Mantium
 prompt = prompt.Prompt.from_id(prompt_id)
@@ -32,7 +35,7 @@ def prompt_results(input_text):
 
 	# check that the result is not an empty value and re-run the prompt if it is
     while prompt_result == "" or prompt_result=="{}":
-        print("Prompt Result Empty. Re-running prompt.")
+        logging.info("Prompt Result Empty. Re-running prompt.")
         executed_prompt = prompt.execute(f"{input_text}")
         executed_prompt.refresh()
 
@@ -47,4 +50,4 @@ if __name__ == "__main__":
     result = prompt_results("benedictine, luxardo, brandy, vermouth")
     assert isinstance(result, str)
 
-    print(result)
+    logging.info(result)
