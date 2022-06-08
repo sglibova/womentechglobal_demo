@@ -5,11 +5,11 @@ import Footer from './components/Footer'
 import Ingredients from './components/Ingredients'
 import AddIngredient from './components/AddIngredient'
 import About from './components/About'
-import NameForm from './components/TextBox'
 
 function App() {
   const [showAddIngredient, setShowAddIngredient] = useState(false)
   const [ingredients, setIngredients] = useState([])
+  const [recipe, setRecipe] = useState('')
 
   useEffect(() => {
     const getIngredients = async () => {
@@ -60,10 +60,26 @@ function App() {
   const deleteIngredient = async (id) => {
     await fetch(`http://localhost:8000/ingredients/${id}`, {
       method: 'DELETE'
-    })
-
-    setIngredients(ingredients.filter((task) => task.id !== id))
+    }).then(
+      response => { setIngredients(response.ingredients) }
+    ).catch(error => console.log(error))
   }
+
+  // Create Recipe
+  const createRecipe = async () => {
+    console.log({ "ingredients": ingredients })
+    await fetch('http://localhost:8000/recipe', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "ingredients": ingredients })
+    }).then(
+      response => { setRecipe(response.recipe) }
+    ).catch(error => console.log(error))
+  }
+
 
   // Toggle Use
   const toggleUse = async (id) => {
@@ -90,7 +106,7 @@ function App() {
   return (
     <Router>
       <div className='container'>
-        <Header onAdd={() => setShowAddIngredient(!showAddIngredient)} showAdd={showAddIngredient} />
+        <Header onAdd={() => setShowAddIngredient(!showAddIngredient)} showAdd={showAddIngredient} createRecipe={createRecipe} />
         <Routes>
           <Route path='/' element={
             <>
@@ -101,7 +117,7 @@ function App() {
           } />
           <Route path='/about' element={<About />} />
         </Routes>
-        <NameForm />
+        {recipe && <h1>{recipe}</h1>}
         <Footer />
       </div>
     </Router>

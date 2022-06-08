@@ -58,8 +58,8 @@ def search_ingredients(
     results = filter(lambda ingredient: keyword.lower() in ingredient["name"].lower(), INGREDIENTS)
     return {"ingredients": list(results)[:max_results]}
 
-
-@api_router.post("/ingredients/", tags=["ingredients"], status_code=201, response_model=Ingredient)
+# Add Ingredient
+@api_router.post("/ingredients", tags=["ingredients"], status_code=201, response_model=Ingredient)
 def add_ingredient(*, ingredient: Ingredient) -> dict:
     """
     Add an ingredient to the list
@@ -75,20 +75,41 @@ def add_ingredient(*, ingredient: Ingredient) -> dict:
     INGREDIENTS.append(ingredient_entry.dict())
     return ingredient_entry
 
+# Delete Ingredient
+@api_router.delete("/ingredients/{id}", tags=["ingredients"], status_code=200, response_model=Ingredients)
+def delete_ingredient(*, id: int) -> dict:
+    """
+    Delete an ingredient from the list
+    """
+    ingredient_entry = [ingredient for ingredient in INGREDIENTS if ingredient["id"] == id]
+    if ingredient_entry:
+        INGREDIENTS.remove(ingredient_entry[0])
+        print(INGREDIENTS)
+        return {"ingredients": INGREDIENTS}
 
-ingredients_list = [f'{ingredient["amount"]} {ingredient["unit"]} {ingredient["name"]}' for ingredient in INGREDIENTS]
-print(ingredients_list)
+# Use Recipe Prompt
+@api_router.post("/recipe", tags=["recipe"], status_code=201, response_model=PromptOutput)
+def get_recipe(*, ingredients_list: Ingredients) -> dict:
 
-ingredients_input = str()
-for ingredient in ingredients_list:
-    ingredients_input += ingredient + " "
+    # INGREDIENTS.append(add_ingredient)
+    # print(INGREDIENTS)
+    print(ingredients_list.schema_json(indent=2))
+    ingredients = [f'{ingredient["amount"]} {ingredient["unit"]} {ingredient["name"]}' for ingredient in ingredients_list]
+    print(ingredients)
 
-print(ingredients_input)
-### This is where we call to Mantium with an input. TODO: make this a POST
-# call to mantium_call to return the results of the prompt to post
-prompt_output = prompt_results(ingredients_input)
-print(prompt_output)
+    ingredients_input = str()
+    for ingredient in ingredients:
+        ingredients_input += ingredient + " "
 
+    print(ingredients_input)
+
+    prompt_output = prompt_results(ingredients_input)
+
+    print(prompt_output, type(prompt_output))
+
+    return {"recipe": prompt_output}
+
+###############################################################################
 app.include_router(api_router)
 
 

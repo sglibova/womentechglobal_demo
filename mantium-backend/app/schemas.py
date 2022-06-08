@@ -10,6 +10,7 @@ class Ingredient(BaseModel):
 
 class Ingredients(BaseModel):
     ingredients: List[Ingredient]
+
 class PromptInput(BaseModel):
     input: str
 
