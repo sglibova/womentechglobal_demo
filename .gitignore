@@ -1,6 +1,6 @@
 ## Python
 # Byte-compiled / optimized / DLL files
-mantium-backend/app/__pycache__
+mantium-backend/app/__pycache__/
 *.py[cod]
 *$py.class
 
