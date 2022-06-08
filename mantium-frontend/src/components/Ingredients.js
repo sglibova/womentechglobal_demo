@@ -4,8 +4,8 @@ const Ingredients = ({ ingredients, onDelete, onToggle }) => {
 
     return (
         <>
-            {ingredients.map((ingredient) => (
-                <Ingredient key={ingredient.id}
+            {ingredients.map((ingredient, index) => (
+                <Ingredient key={index}
                     ingredient={ingredient}
                     onDelete={onDelete}
                     onToggle={onToggle} />
